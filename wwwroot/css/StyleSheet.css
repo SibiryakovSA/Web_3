@@ -1,0 +1,44 @@
+﻿.auth {
+    margin: auto;
+    background-color: aliceblue;
+    align-items: center;
+}
+
+button{
+    margin: 10px;
+}
+
+input {
+    margin-top: auto;
+    margin: 10px;
+}
+
+.center{
+    margin-top: 40vh;
+}
+
+.login_pass_input {
+    text-align-last: center;
+}
+
+.issue {
+    /*width: 200px;*/
+    border-color: black; /* Цвет границы */
+    border-style: solid; /* Стиль границы */
+    margin: 20px;
+    border-radius: 15px;
+}
+
+.issue > *{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.modal-content > container-fluid > * {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.checkboxModal *{
+    display: inline-block;
+}
