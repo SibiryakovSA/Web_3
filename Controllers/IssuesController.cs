@@ -21,12 +21,16 @@ namespace Web_3_6.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            return View("issues");
+            return View("issues", GetIssues());
         }
 
+        private IActionResult IssuesPartial()
+        {
+            return PartialView("issuesPartial", GetIssues());
+        }
+        
         [Authorize]
-        [HttpGet]
-        public IActionResult GetIssues()
+        public IQueryable<Issue> GetIssues()
         {
             if (User.Claims.ToList()[1].Value == "2")
                 return GetAllIssues();
@@ -34,18 +38,16 @@ namespace Web_3_6.Controllers
         }
 
         [Authorize(Roles = "2")]
-        [HttpGet]
-        public IActionResult GetAllIssues()
+        private IQueryable<Issue> GetAllIssues()
         {
-            return Ok(db.issues);
+            return db.issues;
         }
 
         [Authorize]
-        [HttpGet]
-        public IActionResult GetUserIssues()
+        private IQueryable<Issue> GetUserIssues()
         {
             var user = db.users.FirstOrDefault(x => x.login == User.Claims.ToList()[0].Value);
-            return Ok(db.issues.Where(x => x.userId == user.id));
+            return db.issues.Where(x => x.userId == user.id);
         }
 
 
@@ -64,12 +66,13 @@ namespace Web_3_6.Controllers
 
             var issue = userIssues.FirstOrDefault(x => x.id == id);
             if (issue != null) {
-                var t = db.Remove(issue);
+                var comments = db.comments.Where(x => x.issueId == issue.id);
+                db.RemoveRange(comments);
+                db.Remove(issue);
                 db.SaveChanges();
-                return Ok(GetIssues());
             }
 
-            return NotFound();
+            return IssuesPartial();
         }
 
         //ПРОТЕСТИ МЕТОД
@@ -83,7 +86,38 @@ namespace Web_3_6.Controllers
             db.issues.Add(issue);
             db.SaveChanges();
 
-            return Ok();
+            return IssuesPartial();
+        }
+        
+        [Authorize]
+        [HttpPost]
+        public IActionResult EditIssue(int issueId, string issueName = null, string issueText = null,
+            bool? isComplited = null)
+        {
+            var userClaims = User.Claims.ToList();
+            var user = db.users.FirstOrDefault(u => u.login == userClaims[0].Value);
+            var issue = db.issues.FirstOrDefault(i => i.id == issueId);
+            
+            if (issue == null)
+                return NotFound();
+
+            if (userClaims[1].Value != "2" && issue.userId != user.id)
+                return Forbid();
+
+            if (issueName == null && issueText == null && isComplited == null)
+                return BadRequest();
+            
+            if (issueName != null) 
+                issue.issueName = issueName;
+
+            if (issueText != null)
+                issue.issueText = issueText;
+
+            if (isComplited != null) 
+                issue.isComplited = (bool) isComplited;
+
+            db.SaveChanges();
+            return IssuesPartial();
         }
     }
 }

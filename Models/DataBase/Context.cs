@@ -11,6 +11,7 @@ namespace Web_3_6.Models.DataBase
     {
         public DbSet<User> users { get; set; }
         public DbSet<Issue> issues { get; set; }
+        public DbSet<Comment> comments { get; set; }
 
         public Context(DbContextOptions<Context> options) 
             :base(options)

@@ -11,18 +11,42 @@
     <EmbeddedResource Remove="wwwroot\node_modules\**" />
     <None Remove="wwwroot\node_modules\**" />
     <TypeScriptCompile Remove="wwwroot\node_modules\**" />
+    <Content Update="Views\Shared\Registr.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Shared\IssuesPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Shared\CreateIssuePartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Shared\CommentsPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Shared\IssueHTMLPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\IssuesStyleSheet.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="JavaScriptEngineSwitcher.ChakraCore" Version="3.9.1" />
-    <PackageReference Include="JavaScriptEngineSwitcher.ChakraCore.Native.win-x64" Version="3.9.1" />
-    <PackageReference Include="JavaScriptEngineSwitcher.Extensions.MsDependencyInjection" Version="3.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="React.AspNet" Version="5.2.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\js" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

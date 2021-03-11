@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using React.AspNet;
-using JavaScriptEngineSwitcher.ChakraCore;
-using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Web_3_6.Models.DataBase;
 using Microsoft.EntityFrameworkCore;
@@ -27,17 +24,13 @@ namespace Web_3_6
         {
             services.AddMemoryCache();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddReact();
-            services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName).AddChakraCore();
 
-            // получаем строку подключения из файла конфигурации
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            // добавляем контекст в качестве сервиса в приложение
             services.AddDbContext<Context>(options =>
                 options.UseSqlite(connection));
             services.AddControllersWithViews();
 
-            // установка конфигурации подключения
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
                 {
@@ -50,22 +43,17 @@ namespace Web_3_6
         {
             app.UseDeveloperExceptionPage();
 
-            app.UseReact(config => { });
             app.UseDefaultFiles();
-            app.UseStaticFiles();/*new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"node_modules")),
-                RequestPath = new PathString("/node_modules")
-            });*/
+            app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseAuthentication();    // аутентификация
-            app.UseAuthorization();     // авторизация
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Auth}/{action=Index}/{id?}");
+                    pattern: "{controller=Auth}/{action=Index}");
             });            
         }
     }

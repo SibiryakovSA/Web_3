@@ -1,0 +1,61 @@
+﻿@model Web_3_6.Models.DataBase.Classes.Issue
+@{
+    var issue = Model;
+}
+
+<div class="issue" id="@issue.id">
+    <h4>
+        @issue.issueName
+    </h4>
+    <button class="btn btn-default deleteIssue issueButton">Удалить</button>
+    <div class="issueButton">
+        <button class="btn btn-default" id="myBtn_@issue.id">Изменить</button>
+        <div class="modal fade" id="myModal_@issue.id" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">@issue.issueName</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Название</label>
+                            <input placeholder="Введите название задачи" class="form-control" type="text" id="issueName_@issue.id" value="@issue.issueName"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Описание</label>
+                            <textarea placeholder="Введите описание задачи" class="form-control" rows="4" style="resize: none" id="issueText_@issue.id">@issue.issueText</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-check-label">Выполнено</label>
+                            <input type="checkbox" class="form-check-input" id="isComplited_@issue.id" checked="@issue.isComplited"/>
+                        </div>
+                        <div class="form-group" style="margin-left: 82%">
+                            <input type="submit" class="btn btn-primary" value="Сохранить" id="confirmEdit_@issue.id"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="issueButton">
+        <button class="btn btn-default" id="commentsButton_@issue.id">Комментарии</button>
+        <div class="modal fade" role="dialog" data-backdrop="false" id="comments_@issue.id">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <label>Комментарии к @issue.issueName</label>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="commentsList_@issue.id"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="text" class="form-control" id="newComment_@issue.id" placeholder="Введите комментарий" style="display: inline-block; width: 67.3%"/>
+                        <button class="btn btn-primary" id="confirmNewComment_@issue.id" style="display: inline-block; width: 32%">Добавить комментарий</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,115 @@
+﻿@model IQueryable<Web_3_6.Models.DataBase.Classes.Issue>
+
+<div id="issues">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="mainLable">Не выполнено</label>
+                @foreach (var issue in Model)
+                {
+                    if (issue.isComplited != true)
+                    {
+                        Html.RenderPartial("IssueHTMLPartial", issue);
+                    }
+                }
+            </div>
+            <div class="col-md-6">
+                <label class="mainLable">Выполнено</label>
+                @foreach (var issue in Model)
+                {
+                    if (issue.isComplited)
+                    {
+                        Html.RenderPartial("IssueHTMLPartial", issue);
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+        $(".deleteIssue").click(function(e) {
+            const id = e.target.parentNode.id
+            $.ajax({
+              url: 'Issues/DeleteIssue',
+              type: "POST",
+              data: {id: id},
+              success: function(data) {
+                $('#issues').html(data);
+              }
+            });
+          });
+</script>
+<script>
+//протести это дело
+//TODO: метка isComplited меняется при изменении задачи
+//при странной работе hideModal почему то все работает, хотя он даже не вызывается
+function hideModal(modalName) {
+  $("#"+modalName).removeClass("in");
+  $(".modal-backdrop").remove();
+  $('body').removeClass('modal-open');
+  $('body').css('padding-right', '');
+  $("#"+modalName).hide();
+}
+</script>
+@foreach (var issue in Model)
+{
+    <script>
+    $(document).ready(function(){
+        $("#myBtn_@issue.id").click(function(){
+            $("#myModal_@issue.id").modal();
+        });
+    });
+    </script>
+    <script type="text/javascript">
+        $("#confirmEdit_@issue.id").click(function() {
+            const id = @issue.id;
+            const name = $("#issueName_@issue.id").val();
+            const descr = $("#issueText_@issue.id").val();
+            const isComplite = $("#isComplited_@issue.id").prop("checked");
+            $.ajax({
+              url: 'Issues/EditIssue',
+              type: "POST",
+              data: {issueId: id, issueName: name, issueText: descr, isComplited: isComplite},
+              success: function(data) {
+                  hideModal('myModal_@issue.id');
+                $('#issues').html(data);
+              }
+            });
+          });
+    </script>
+    <script>
+    $(document).ready(function(){
+        $("#commentsButton_@issue.id").click(function(){
+            $("#comments_@issue.id").modal();
+        });
+    });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        const id = @issue.id;
+            $.ajax({
+            url: 'Comments/GetIssueComments',
+            type: "GET",
+            data: {issueId: id},
+            success: function(data) {
+                $('#commentsList_@issue.id').html(data);
+            }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+    $("#confirmNewComment_@issue.id").click(function(){
+        const id = @issue.id;
+        const commentText = $("#newComment_@issue.id").val();
+            $.ajax({
+            url: 'Comments/AddIssueComment',
+            type: "POST",
+            data: {issueId: id, commentText: commentText},
+            success: function(data) {
+                $('#commentsList_@issue.id').html(data);
+            }
+            });
+        });
+    </script>
+}

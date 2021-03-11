@@ -1,0 +1,15 @@
+﻿.mainLable {
+    font-size: 25px;
+}
+
+.issue {
+    display: block;
+}
+.issue > * {
+    display: inline-block;
+}
+
+.issueButton{
+    float: right;
+    margin-left: 7px;
+}

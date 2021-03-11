@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Issues</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/StyleSheet.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="root">
+    <form action="~/Auth/Login" method="get">
+        <div class="loginElem">
+            <label>Логин</label>
+            <input class="input-group-text" type="text" name="userName"/>
+        </div>
+        <div class="loginElem">
+            <label asp-for="pass">Пароль</label>
+            <input class="input-group-text" type="password" name="pass"/>
+        </div>
+        <button class="btn btn-primary" type="submit">Войти</button>
+    </form>
+    <a href="~/Auth/Registr">Регистрация</a>
+</div>
+</body>
+</html>

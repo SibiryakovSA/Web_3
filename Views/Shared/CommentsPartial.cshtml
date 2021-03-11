@@ -1,0 +1,6 @@
+﻿@model IQueryable<Web_3_6.Models.DataBase.Classes.Comment>
+    
+@foreach (var comment in Model)
+{
+    <p>@comment.commentText</p>
+}

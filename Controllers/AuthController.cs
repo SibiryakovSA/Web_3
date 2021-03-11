@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -29,6 +28,13 @@ namespace Web_3_6.Controllers
             return View("auth");
         }
 
+
+        [HttpGet]
+        public IActionResult Registr()
+        {
+            return View("Registr");
+        }
+        
         [HttpPost]
         public async Task<IActionResult> Registr(string userName, string pass, int role = 1)
         {
@@ -41,11 +47,11 @@ namespace Web_3_6.Controllers
 
                 await Authenticate(userName, role); // аутентификация
 
-                return Ok();
-                //return RedirectToAction("Index", "issues");
+                //return Ok();
+                return RedirectToAction("Index", "issues");
             }
 
-            return NotFound();
+            return View("Registr");
         }
 
         private async Task Authenticate(string userName, int role)
@@ -69,12 +75,11 @@ namespace Web_3_6.Controllers
             if (user != null)
             {
                 await Authenticate(userName, user.role); // аутентификация
-
-                return Ok();
-                //return RedirectToAction("Index", "issues");
+                
+                return RedirectToAction("Index", "issues");
             }
 
-            return NotFound();
+            return View("auth");
         }
 
         [Authorize]

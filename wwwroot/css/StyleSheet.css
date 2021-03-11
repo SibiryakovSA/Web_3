@@ -1,44 +1,40 @@
-﻿.auth {
+﻿.root {
+    margin: 10% auto;
+}
+
+.root > form {
+    text-align: center;
     margin: auto;
-    background-color: aliceblue;
-    align-items: center;
+    clear: both;
+    width: 230px;
 }
 
-button{
-    margin: 10px;
+.root > form > button {
+    width: 100%;
+    margin: 10px auto auto;
 }
 
-input {
-    margin-top: auto;
-    margin: 10px;
-}
-
-.center{
-    margin-top: 40vh;
-}
-
-.login_pass_input {
-    text-align-last: center;
-}
-
-.issue {
-    /*width: 200px;*/
-    border-color: black; /* Цвет границы */
-    border-style: solid; /* Стиль границы */
-    margin: 20px;
-    border-radius: 15px;
-}
-
-.issue > *{
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.modal-content > container-fluid > * {
-    margin-left: 0px;
-    margin-right: 0px;
-}
-
-.checkboxModal *{
+.root > form label {
+    float: left;
     display: inline-block;
+    margin-top: 10px;
 }
+
+.root > form input {
+    float: right;
+    display: inline-block;
+    width: 150px;
+    margin-top: 10px;
+}
+
+.root a {
+    display: block;
+    text-align: center;
+    margin: 10px auto auto;
+}
+
+.loginElem {
+    clear: both;
+    margin: auto;
+}
+
